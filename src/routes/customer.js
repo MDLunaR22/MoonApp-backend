@@ -1,13 +1,14 @@
 const { Router } = require('express');
-const { getCustomers, createUser, updateUser, getCustomerById, deleteAccount } = require('../controllers/customer');
-const { login } = require('../controllers/auth');
+const { getCustomers, deleteAccount, getAccount, updateAccount } = require('../controllers/customer');
+const { login, register } = require('../controllers/auth');
+const { validateJWT } = require('../middlewares/validate-jwt');
 const router = Router();
 
-router.get('/', getCustomers);
-router.get('/:id', getCustomerById);
-router.post('/login', login);
-router.post('/create', createUser);
-router.put('/update/:id', updateUser);
-router.delete('/delete/:id', deleteAccount);
+router.get('/', [validateJWT] , getCustomers);
+router.get('/view/account', [validateJWT], getAccount);
+router.post('/login',login);
+router.post('/register', register);
+router.put('/updateAccount', [validateJWT], updateAccount);
+router.delete('/deleteAccount',[ validateJWT ] , deleteAccount);
 
 module.exports = router;
