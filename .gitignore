@@ -1,2 +1,6 @@
 /node_modules
 /.env
+/src/models/package.js
+/src/controllers/package.js
+/src/routes/package.js
+/.gitignore

@@ -20,11 +20,15 @@ exports.getAccount = async (req, res) =>{
     })
 }
 
+exports.getMyPackages = async (req, res) => {
+    const { id } = req.user;
+    
+}
+
 exports.updateAccount = async (req, res) =>{
 
     const {name, surname, email, password, phone} = req.body;
     const { id } = req.user
-    
 
     // Contraseña encriptada
     const salt = bcryptjs.genSaltSync();
@@ -40,20 +44,16 @@ exports.updateAccount = async (req, res) =>{
 }
 
 exports.deleteAccount = async(req, res) => {
-
     try{
         let { id } = req.user
         let existCustomer = await Customers.findByPk(id)
 
         if(!existCustomer) return res.status(404).send({message: 'Account not found'})
 
-
-        // await existCustomer.destroy()
+        await existCustomer.destroy()
         return res.send({message: 'Account delete succesfully'})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error deleting yor account'})
     }
 }
-
-
