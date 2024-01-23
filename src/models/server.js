@@ -1,5 +1,3 @@
-'use strict'
-
 const express = require('express');
 const morgan = require ('morgan');
 const helmet = require ('helmet');
@@ -8,7 +6,8 @@ const app = express();
 const port = process.env.PORT;
 
 const routes = {
-    customer: '/customer'
+    customer: '/customer',
+    package: '/package'
 }
 
 //Configuracion del servidor
@@ -19,7 +18,8 @@ app.use(helmet());
 app.use(morgan('dev'));
 
 //Seteo de rutas
-app.use(routes.customer, require('../routes/customer'))
+app.use(routes.customer, require('../routes/customer'));
+app.use(routes.package, require('../routes/package'));
 
 exports.initServer = ()=>{
     app.listen(port);
